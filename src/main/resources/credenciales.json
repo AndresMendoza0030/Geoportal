@@ -1,0 +1,13 @@
+{
+  "type": "service_account",
+  "project_id": "geoagente-vryp",
+  "private_key_id": "0a35d074c6082e1002697997a53ee5c3afe23b30",
+  "private_key": "-----BEGIN PRIVATE KEY-----\nMIIEvQIBADANBgkqhkiG9w0BAQEFAASCBKcwggSjAgEAAoIBAQC+9f+3qaDPYsir\ncYKHgdPHyGeUMj7m/7QuJqUPlZx8oq3agsjbyjvu8ORflzve7/h/ZaG/SA89yJrq\nYhv9XN8P4tyc9xzoIHmTsNns+/ikKtab7FQD51wkJc5YT6aPlNXOGxUlU/KEhD0w\n7ljmDuhYYeHAYhzxl1mUBE65nSeoEBF05My8GhV3CO19EBNGPjt7SGgQDkXazUn3\nP6L5FjVxhhgOIsOxdgEBX+vMkoRpUyGovElaJXIk9wbT+2rODVWP2gbjxrQOBRIQ\n8x2qSS+B+8bXpx3InXuqDNTFLoVS8sqlsPYDk6tnBMEsTYwslNTfQf8TXieP3brZ\n6I8P/2L3AgMBAAECggEAQEK8KOwWR3Own7D1AfC4edSAtqgp7sZBtf4fMZ1hKbf8\n1TmJqhzmCkRaNajI5v7OGuDyi1IOfvYQ26rkTGCCV/A52UB3I8452296BnvMckJQ\nMexXYXDr2uY2CBXVsR+ey1rlxMf5JorxpJOwqsp9ebCGrZzWrJ4H8P16GJBAFhes\nJ79iEJGE/15HFtY8duNkDHFiagPAI/zpRCSiaAwguMoNC+70d+Z5U0m7/4XMCjZc\nRF214SPfNvGAL0G1tKz2PKy490CHzCCDXbixQHj5qQtzVT2NBWTQ7wwT1TB4+3ZQ\nqrTIvOklDd5FnXisWaUMvps7HZ5OU52k6yCdS2734QKBgQD66+qI7KJYhmvbToRC\noffNXUQxIKEYKBkGuDBfWxKokDqWbEUJewM+mRhFXOU9ffm0omwquUBsf6JbnjGe\nK8luj5ujwUGO3R1CWogj9hEMIldhpC7ExBxcPbBQZLot0GfG+9CEGMUC7fu8xdO5\nyItpWInJPRLTwLipD8btZkRXmQKBgQDC02miCy72M+ymNzalAZqlX2YJKSmAuHkA\nZV3jtIDz7JGerOTB0UlOGWdZERkqaQjiiMkj9U9YlhHXPdhqAkceZd7/eE7gvk8a\npnfNawR1WSD9ZTwByPsqAuFqwU6XTrvP80Sgm4zRk3xb50YBoZDDZt4r2C5ymBnB\n2Uvy6uTpDwKBgDKkaKqH7+AkCSKy/xifre7B0yCDMGA6v4pOpFyqeeKRcXGommpm\nbGo25eIh9JZrlXkyitg4mVsMi40oKWV9+uKYk1YCjCO0VtJsiSuQ3zHuwGoRg+rs\nlbi8LpibK8RRWpCbhCMVCLYlp/gaiTfm1NRHLU/zRph8PgjJCWIikMqJAoGAeppE\nTV8wTGtcrzTrxGcABLXGJlmq7oAoVWF09kivJdFnyi0PQBEOSoGeEeS6q3+xwa1G\ntsQ3DI5T59nZiMyqKKz+6lGxgakBasn7dl+0TIysQAom+xCZTlTFukKvzHQVqMV0\nGIYK1hA0IDmoSnp7+RuREJJYmHCzNNQkAVhkeW0CgYEAqXNCzUpQxxi1jwvR/esZ\nA6v9Ss9yNPzusW9WqJaLiz2oZ2qYJZ+vGzPcylmyFGcbX/S2rmHgxoi/KstYFQrp\nYhyzLaj2iYDmY8LGjq5XIdK8d64Or668bdigZ1dvvtvc6iku8v0DRT32yeYmUPwK\nhu5owcG3phEJWfvSFT0AaWY=\n-----END PRIVATE KEY-----\n",
+  "client_email": "geoportal@geoagente-vryp.iam.gserviceaccount.com",
+  "client_id": "105962699211776710466",
+  "auth_uri": "https://accounts.google.com/o/oauth2/auth",
+  "token_uri": "https://oauth2.googleapis.com/token",
+  "auth_provider_x509_cert_url": "https://www.googleapis.com/oauth2/v1/certs",
+  "client_x509_cert_url": "https://www.googleapis.com/robot/v1/metadata/x509/geoportal%40geoagente-vryp.iam.gserviceaccount.com",
+  "universe_domain": "googleapis.com"
+}

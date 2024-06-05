@@ -1,137 +1,339 @@
-<!DOCTYPE html>
-<html xmlns="http://www.w3.org/1999/xhtml"
-	xmlns:th="http://www.thymeleaf.org">
-<head>
-<title>Geoportal Vacunacion</title>
-<meta charset="utf-8" />
+    <!DOCTYPE html>
+    <html xmlns="http://www.w3.org/1999/xhtml"
+        xmlns:th="http://www.thymeleaf.org">
+    <head>
+        <title>Geoportal Centros de Asistencia Médica</title>
+        <meta charset="utf-8" />
+        <meta name="viewport" content="width=device-width, initial-scale=1"/>
+        <link rel="stylesheet" href="/css/styles.css" th:href="@{/css/styles.css}"/>
+        <link rel="stylesheet" href="/css/main.css"
+        th:href="@{/webjars/leaflet/1.0.3/leaflet.css}" />
+        <script type="text/javascript" src="webjars/jquery/3.2.0/jquery.min.js" th:src="@{/webjars/jquery/3.2.0/jquery.min.js}"></script>
+        <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
+        <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.bundle.min.js"></script>
+        <script src="/js/chatbot.js" th:src="@{/js/chatbot.js}"></script>
+        <script type="text/javascript" src="/webjars/leaflet/1.0.3/leaflet.js"
+            th:src="@{/webjars/leaflet/1.0.3/leaflet.js}"></script>
+            <link rel="stylesheet" type="text/css"
+            href="webjars/bootstrap/4.0.0-alpha.6/css/bootstrap.min.css"
+            th:href="@{/webjars/bootstrap/4.0.0-alpha.6/css/bootstrap.min.css}" />
+            <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css"/>
+            <link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined" rel="stylesheet" />
+            <style>
+                df-messenger {
+                 --df-messenger-bot-message: #374151;
+                 --df-messenger-button-titlebar-color: #374151;
+                 --df-messenger-chat-background-color: #fafafa;
+                 --df-messenger-font-color: white;
+                 --df-messenger-send-icon: ##374151;
+                 --df-messenger-user-message: #479b3d;
+                }
+              </style>
+        
+        
+    </head>
 
-<link rel="stylesheet" type="text/css"
-	href="webjars/bootstrap/4.0.0-alpha.6/css/bootstrap.min.css"
-	th:href="@{/webjars/bootstrap/4.0.0-alpha.6/css/bootstrap.min.css}" />
-<link rel="stylesheet" href="/css/main.css"
-	th:href="@{/webjars/leaflet/1.0.3/leaflet.css}" />
-<script type="text/javascript" src="/webjars/leaflet/1.0.3/leaflet.js"
-	th:src="@{/webjars/leaflet/1.0.3/leaflet.js}"></script>
-<link rel="stylesheet" href="/css/main.css" th:href="@{/css/main.css}" />
-<style type="text/css">
-.container-full {
-	position: absolute;
-	bottom: 0px;
-	top: 50px;
-	width: 100%;
-	overflow: auto;
-}
+    <body class="bg-gray-100">
+    
+        <nav class="bg-white shadow-lg">
+            <div class="px-2 mx-auto ">
+                <div class="flex justify-between">
+                    <div class="flex space-x-2">
+                        <!-- logo -->
+                        <div>
+                            <a href="#" class="flex items-center  py-3 px-2 text-gray-700 hover:text-gray-900" style="margin-bottom: 10px; ">
+                                <img src="/images/alfiler.png" alt="Logo" class="md:hidden " style="width:40px; height: 40px; margin-top: -12px; "/>
+                                <span class="font-bold website-name">Geoportal Centros de Asistencia Médica</span>
+                            </a>
+                        </div>
+                        <!-- primary nav -->
+                        <div class="hidden md:flex items-center space-x-1" style="margin-bottom: 10px">
+                            <a th:href="@{/map/index}" class="py-3 px-3 text-gray-700 hover:text-gray-900">Clinicas Comunales</a>
+                            <a th:href="@{/map/personas}" class="py-3 px-3 text-gray-700 hover:text-gray-900">Unidades Médicas</a>
+                        </div>
+                    </div>
+                    <!-- secondary nav -->
+                    <div class="hidden md:flex items-center space-x-1">
+                        <div th:replace="index::logout"></div>
+                    </div>
+                    <!-- mobile button goes here -->
+                    <div class="md:hidden flex items-center" style="width:40px; height: 40px; margin-top: 8px; ">
+                        <button class="mobile-menu-button">
+                        <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16m-7 6h7"></path></svg>
+                        </button>
+                    </div>
+                      <!-- mobile menu -->
+                    <div class="mobile-menu hidden">
+                        <a th:href="@{/map/index}" class="block py-2 px-4 text-sm text-gray-700 hover:bg-gray-100">Clinicas Comunales</a>
+                        <a th:href="@{/map/personas}" class="block py-2 px-4 text-sm text-gray-700 hover:bg-gray-100">Unidades Médicas</a>
+                    </div>
+                </div>
+                
+            </div>
+          
+            
+        </nav>
+    
+        <div class="container-full text-xs sm:text-xs md:text-xs lg:text-base" >
+            <div id="mapid"></div>
+            <div class="mt-2 bg-white px-6 py-2 rounded-lg shadow-md">
+                <div class="flex flex-col items-center md:flex-row md:justify-center md:items-center">
+                    <h1 class="font-bold text-center text-xl mx-auto md:ml-4">Clínicas Comunales</h1>
+                    <div class="flex-end">
+                        <label for="municipioFilter" class="block text-sm font-medium text-gray-700">Filtrar por Municipio:</label>
+                        <div class="dropdown">
+                            <button class="btn btn-secondary dropdown-toggle" type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" style="background-color: white; color: black;">
+                                Seleccionar Municipios
+                            </button>
+                            <div class="dropdown-menu" aria-labelledby="dropdownMenuButton" style="background-color: white; color: black;">
+                                <th:block th:each="municipio, index : ${municipios}">
+                                    <a class="dropdown-item">
+                                        <input type="checkbox" id="municipio_${index}" th:value="${municipio}" th:data-value="${municipio}" />
+                                        <label th:for="'municipio' + ${index}" th:text="${municipio}">Municipio</label>
+                                    </a>
+                                </th:block>
+                                
+                                <div class="text-center"> 
+                                    <button id="updateDataButton" class="btn btn-primary mt-2">Actualizar</button>
+                                </div>
 
-#mapid {
-	height: 80%;
-	width: 100%;
-}
-
-.navbar {
-	z-index: 10000;
-}
-}
-</style>
-</head>
-
-<body>
-
-	<nav class="navbar navbar-toggleable-md navbar-light bg-faded">
-		<button class="navbar-toggler" type="button" data-toggle="collapse"
-			data-target="#navbarTogglerDemo01"
-			aria-controls="navbarTogglerDemo01" aria-expanded="false"
-			aria-label="Toggle navigation">
-			<span class="navbar-toggler-icon"></span>
-		</button>
-		<div class="collapse navbar-collapse" id="navbarTogglerDemo01">
-			<a class="navbar-brand" href="/map/index">Geoportal Vacunacion</a>
-			<ul class="navbar-nav mr-auto mt-2 mt-lg-0">
-				<li class="nav-item active"><a class="nav-link" href="#">Centros de Vacunacion
-						<span class="sr-only">(current)</span>
-				</a></li>
-				<li class="nav-item active">
-					<a class="nav-link" th:href="@{/map/personas}">Personas</a>
-				</li>
-			</ul>
-			<div th:substituteby="index::logout"></div>
-		</div>
-	</nav>
-	<div class="container-full" >
-		<div id="mapid"></div>
-		<div class="signup-form container" style = "font-family:courier,arial,helvetica;">
-			<h1 class="display-6 d-flex justify-content-center"> Tabla de Vacunación</h1>
-			<table class="table table-dark table-striped">
-				<thead class="thead-dark">
-				<th>#</th>
-				<th>Nombre</th>
-				<th>Direccion</th>
-				<th>Municipio</th>
-				</thead>
-				<tbody>
-				<th:block th:each="centro, row:${centros}">
-					<tr th:each="v : ${centro}">
-						<td th:text="${v.id}"></td>
-						<td th:text="${v.NombreCentro}"></td>
-						<td th:text="${v.direccionCentro}"></td>
-						<td th:text="${v.municipioCentro}"></td>
-					</tr>
-				</th:block>
-				</tbody>
-			</table>
-		</div>
-	</div>
-
-	<a href="/index" th:href="@{/map/index}">Back to home page</a>
+                            </div>
+                            
+                        </div>
+                    </div>
+                </div>
+                
+                
+                <div class="table-container" style="overflow-x: auto;">
+                    <table class="min-w-full overflow-x-auto divide-y divide-gray-200">
+                        <thead class="bg-gray-700 text-white">
+                            <tr>
+                                <th scope="col" class="px-6 py-3 text-left  font-medium uppercase tracking-wider">
+                                    #
+                                </th>
+                                <th scope="col" class="px-6 py-3 text-left  font-medium uppercase tracking-wider">
+                                    Nombre
+                                </th>
+                                <th scope="col" class="px-6 py-3 text-left  font-medium uppercase tracking-wider">
+                                    Dirección
+                                </th>
+                                <th scope="col" class="px-6 py-3 text-left  font-medium uppercase tracking-wider">
+                                    Municipio
+                                </th>
+                            </tr>
+                        </thead>
+                        <tbody class="bg-white divide-y divide-gray-200">
+                            <th:block th:each="centro, row : ${centros}">
+                                <tr th:each="v : ${centro}">
+                                    <td th:text="${v.id}" class="px-6 py-4 whitespace-nowrap"></td>
+                                    <td th:text="${v.nombre}" class="px-6 py-4 whitespace-nowrap"></td>
+                                    <td th:text="${v.direccion}" class="px-6 py-4 whitespace-nowrap"></td>
+                                    <td th:text="${v.municipio}" class="px-6 py-4 whitespace-nowrap"></td>
+                                </tr>
+                            </th:block>
+                        </tbody>
+                    </table> </div>
+            </div>
+           
+    </div>
+ 
+    <script src="https://www.gstatic.com/dialogflow-console/fast/messenger/bootstrap.js?v=1"></script>
+    <df-messenger
+    intent="WELCOME"
+    chat-title="GeoAgente"
+    agent-id="918c7b00-fc13-47e3-84c6-41fd9dff493e"
+    language-code="es"
+    ></df-messenger>
 
 
+        <script th:inline="javascript">
+           var customIcon = L.icon({
+           iconUrl: '/images/alfiler.png',
+           iconSize: [42, 42], 
+           iconAnchor: [16, 32], 
+           popupAnchor: [0, -32]
+           });
 
-	<script th:inline="javascript">
-/*<![CDATA[*/
-var serverContext = [[@{/}]];
-var model_map = [[${model.map}]];
-var centrosVacunacion = [[${centros}]];
-var mymap = L.map('mapid').setView([13.693399179677684,-89.21802884256014], 13);
-new L.tileLayer(
-		'http://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
-			maxZoom : 19
-		}).addTo(mymap);
-mymap.on('zoomend', updateLeafletMap,mymap);
-mymap.on('moveend', updateLeafletMap, mymap);
+            var serverContext = [[@{/}]];
+            var model_map = [[${model.map}]];
+            var clinicasComunales = [[${centros}]];
+            var mymap = L.map('mapid').setView([13.693399179677684,-89.21802884256014], 13);
+            new L.tileLayer('http://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
+                maxZoom : 19
+            }).addTo(mymap);
+            mymap.on('zoomend', updateLeafletMap, mymap);
+            mymap.on('moveend', updateLeafletMap, mymap);
 
-centrosVacunacion.forEach(element => L.marker([element.coorX,element.coorY]).addTo(mymap).bindPopup(`<h5>${element.nombreCentro}</h5>`) );
+            clinicasComunales.forEach(element => L.marker([element.coorY, element.coorX],{icon: customIcon}).addTo(mymap).bindPopup(`<h5>${element.nombre}</h5>`) );
 
-function updateLeafletMap(ev){
-	var map = this;
-	var form_data = new FormData();
-	form_data.append([[${_csrf.parameterName}]], [[${_csrf.token}]]);
-	form_data.append('zoom',map.getZoom());
-	form_data.append('baseLayer',model_map.baseLayer);
-	form_data.append('centerX',map.getCenter().lng);
-	form_data.append('centerY',map.getCenter().lat);
-	form_data.append('id',model_map.id);
+            console.log(clinicasComunales);
+            function updateLeafletMap(ev){
+                var map = this;
+                var form_data = new FormData();
+                
+                form_data.append('zoom', map.getZoom());
+                form_data.append('baseLayer', model_map.baseLayer);
+                form_data.append('centerX', map.getCenter().lng);
+                form_data.append('centerY', map.getCenter().lat);
+                form_data.append('id', model_map.id);
 
-    $.ajax({
-    	  url: serverContext + 'map/update',
-    	  data: form_data,
-    	  processData: false,
-    	  contentType: false,
-    	  type: 'POST',
-    	  success: function(data){
-    		  console.log(data)
-    	  }
-    	});
-}
-/*]]>*/
+                $.ajax({
+                    url: serverContext + 'map/update',
+                    data: form_data,
+                    processData: false,
+                    contentType: false,
+                    type: 'POST',
+                    success: function(data){
+                        console.log(data);
+                    }
+                });
+            }
+           
+        </script>
+
+<script>
+    document.addEventListener('DOMContentLoaded', function () {
+        const menuButton = document.querySelector('.mobile-menu-button');
+        const mobileMenu = document.querySelector('.mobile-menu');
+        menuButton.addEventListener('click', function () {
+            mobileMenu.classList.toggle('hidden');
+        });
+    });
 </script>
+<script th:inline="javascript">
+document.addEventListener('DOMContentLoaded', function () {
+    const tableRows = document.querySelectorAll('tbody tr');
 
-	<script type="text/javascript"
-		src="webjars/tether/1.4.0/dist/js/tether.min.js"
-		th:src="@{/webjars/tether/1.4.0/dist/js/tether.min.js}"></script>
-	<!-- /.container -->
-	<script type="text/javascript" src="webjars/jquery/3.2.0/jquery.min.js"
-		th:src="@{/webjars/jquery/3.2.0/jquery.min.js}"></script>
-	<script type="text/javascript"
-		src="webjars/bootstrap/4.0.0-alpha.6/js/bootstrap.min.js"
-		th:src="@{/webjars/bootstrap/4.0.0-alpha.6/js/bootstrap.min.js}"></script>
-</body>
-</html>
+    tableRows.forEach(row => {
+        row.addEventListener('click', function () {
+            const clinicaId = row.querySelector('td:first-child').innerText;
+
+            mymap.eachLayer(function (layer) {
+                if (layer instanceof L.Marker) {
+                    mymap.removeLayer(layer);
+                }
+            });
+
+            const clinica = clinicasComunales.find(clinica => clinica.id === parseInt(clinicaId));
+            if (clinica) {
+                L.marker([clinica.coorY, clinica.coorX],{icon: customIcon}).addTo(mymap).bindPopup(`<h5>${clinica.nombre}</h5>`).openPopup();
+            }
+        });
+    });
+
+    // Restaurar todos los marcadores cuando se hace clic en cualquier lugar del mapa
+    mymap.on('click', function () {
+        mymap.eachLayer(function (layer) {
+            if (layer instanceof L.Marker) {
+                mymap.removeLayer(layer);
+            }
+        });
+
+        clinicasComunales.forEach(clinica => {
+            L.marker([clinica.coorY, clinica.coorX],{icon: customIcon}).addTo(mymap).bindPopup(`<h5>${clinica.nombre}</h5>`);
+        });
+    });
+});
+
+
+
+</script>
+<script>
+    $(document).ready(function() {
+        $(".dropdown-menu label").click(function() {
+            var $checkbox = $(this).find(':checkbox');
+            $checkbox.prop("checked", !$checkbox.prop("checked"));
+            
+            var selectedItems = $(".dropdown-menu input:checked").map(function() {
+                return $(this).attr('data-value');
+            }).get();
+
+            var buttonText = "Seleccionar municipios";
+            if (selectedItems.length > 0) {
+                buttonText = selectedItems.join(", ");
+            }
+            
+            $(this).closest('.dropdown').find('.btn').html(buttonText);
+            
+            return false;
+        });
+    });
+    
+
+</script>
+<script th:inline="javascript">
+// Agrega un evento click al botón de actualización
+function asignarEventosDeClicAFilas() {
+    const tableRows = document.querySelectorAll('tbody tr');
+    tableRows.forEach(row => {
+        row.addEventListener('click', function () {
+            const clinicaId = row.querySelector('td:first-child').innerText;
+
+            mymap.eachLayer(function (layer) {
+                if (layer instanceof L.Marker) {
+                    mymap.removeLayer(layer);
+                }
+            });
+
+            const clinica = clinicasComunales.find(clinica => clinica.id === parseInt(clinicaId));
+            if (clinica) {
+                L.marker([clinica.coorY, clinica.coorX],{icon: customIcon}).addTo(mymap).bindPopup(`<h5>${clinica.nombre}</h5>`).openPopup();
+            }
+        });
+    });
+}
+
+    $('#updateDataButton').click(function() {
+    // Obtiene los municipios seleccionados
+    var selectedMunicipios = [];
+    $('input[type="checkbox"]:checked').each(function() {
+            var municipio = $(this).val();
+            selectedMunicipios.push(municipio);
+        });
+        console.log("Municipios seleccionados:", selectedMunicipios);
+        if (selectedMunicipios.length === 0) {
+        // Si no hay municipios seleccionados, mostrar todos los centros
+        filteredClinicas = clinicasComunales;
+    } else {
+        // Filtra las clínicas según los municipios seleccionados
+        filteredClinicas = clinicasComunales.filter(function(clinica) {
+            return selectedMunicipios.includes(clinica.municipio);
+        });
+    }
+    console.log("Clínicas filtradas:", filteredClinicas);
+    // Actualiza la tabla
+    $('tbody').empty();
+    filteredClinicas.forEach(function(clinica) {
+        $('tbody').append(`
+            <tr id="clinica-${clinica.id}">
+                <td  class="px-6 py-4 whitespace-nowrap">${clinica.id}</td>
+                <td class="px-6 py-4 whitespace-nowrap">${clinica.nombre}</td>
+                <td class="px-6 py-4 whitespace-nowrap">${clinica.direccion}</td>
+                <td class="px-6 py-4 whitespace-nowrap">${clinica.municipio}</td>
+            </tr>
+        `);
+    });
+
+    // Actualiza la lista
+    $('.list-container').empty();
+    filteredClinicas.forEach(function(clinica) {
+        $('.list-container').append(`<li>${clinica.nombre}, ${clinica.direccion}, ${clinica.municipio}</li>`);
+    });
+
+    // Limpia los marcadores del mapa
+    mymap.eachLayer(function(layer) {
+        if (layer instanceof L.Marker) {
+            mymap.removeLayer(layer);
+        }
+    });
+
+    // Añade los marcadores actualizados al mapa
+    filteredClinicas.forEach(function(clinica) {
+        L.marker([clinica.coorY, clinica.coorX], {icon: customIcon}).addTo(mymap).bindPopup(`<h5>${clinica.nombre}</h5>`);
+    });
+    asignarEventosDeClicAFilas();
+});</script>
+    </body>
+
+    </html>
+    

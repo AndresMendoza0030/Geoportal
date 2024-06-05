@@ -65,13 +65,15 @@ public class PersistenceConfig {
 	}
 
 	
-    @Bean
-    public DataSource dataSource() {
-        final DriverManagerDataSource dataSource = new DriverManagerDataSource();
-        dataSource.setDriverClassName("org.postgresql.Driver");
-        dataSource.setUrl("jdbc:postgresql://127.0.0.1:5432/pruebaspring");
-        dataSource.setUsername("postgres");
-        dataSource.setPassword("root");
-        return dataSource;
-    }
+	@Bean
+	public DataSource dataSource() {
+		final DriverManagerDataSource dataSource = new DriverManagerDataSource();
+		dataSource.setDriverClassName("org.postgresql.Driver");
+		// Actualiza URL, nombre de usuario y contraseña según los valores de Railway
+		dataSource.setUrl("jdbc:postgresql://monorail.proxy.rlwy.net:42136/railway");
+		dataSource.setUsername("postgres");
+		dataSource.setPassword("nFjxYMQxTGsRXFdoqfZfawCHTHmMkQpg");
+		return dataSource;
+	}
+	
 }
