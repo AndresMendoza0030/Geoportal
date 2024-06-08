@@ -3,6 +3,7 @@ package com.nikolas.leaflet.service;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
+import java.util.Optional;
 import com.nikolas.leaflet.domain.LeafletMap;
 import com.nikolas.leaflet.repository.LeafletMapRepository;
 
@@ -14,9 +15,10 @@ public class SimpleLeafletMapService implements LeafletMapService {
 	private static final long serialVersionUID = 1L;
 
 	@Override
-	public LeafletMap leafletMap(Integer id) {
-		return leafletMapRepository.findOne(id);
-	}
+    public LeafletMap leafletMap(Integer id) {
+        Optional<LeafletMap> leafletMap = leafletMapRepository.findById(id);
+        return leafletMap.orElse(null); // O cualquier lógica que desees implementar cuando no se encuentra el objeto
+    }
 
 
 

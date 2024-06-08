@@ -4,7 +4,7 @@ import com.nikolas.leaflet.domain.UnidadMedica;
 import com.nikolas.leaflet.repository.UnidadMedicaRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
-
+import java.util.Optional;
 import java.util.List;
 
 
@@ -19,8 +19,8 @@ public class UnidadMedicaServiceImpl implements UnidadMedicaService{
     }
 
     @Override
-    public UnidadMedica unidadMedicaGetOne(Integer id) {
-        return unidadMedicaRepository.findOne(id);
+    public Optional<UnidadMedica> unidadMedicaGetOne(Integer id) {
+        return unidadMedicaRepository.findById(id);
     }
 
     @Override

@@ -1,5 +1,6 @@
 package com.nikolas.leaflet.service;
 
+import java.util.Optional;
 import com.nikolas.leaflet.domain.ClinicaComunal;
 import com.nikolas.leaflet.repository.ClinicaComunalRepository;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -22,9 +23,9 @@ public class CentroVacunacionServiceImpl implements CentroVacunacionService{
         return ClinicaComunalRepository.findByMunicipio(municipio);
     }
     @Override
-    public ClinicaComunal clinicaComunalGetOne(Integer id) {
+    public Optional<ClinicaComunal>  clinicaComunalGetOne(Integer id) {
 
-        return ClinicaComunalRepository.findOne(id);
+        return ClinicaComunalRepository.findById(id);
     }
 
     

@@ -3,13 +3,13 @@ package com.nikolas.leaflet.repository;
 import com.nikolas.leaflet.domain.ClinicaComunal;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
-
+import java.util.Optional;
 import java.util.List;
 
 public interface ClinicaComunalRepository extends JpaRepository<ClinicaComunal,Integer> {
 
 
-    ClinicaComunal findOne(Integer id);
+    Optional<ClinicaComunal> findById(Integer id);
     List<ClinicaComunal> findAll();
     
     List<ClinicaComunal> findByMunicipio(String municipio);
