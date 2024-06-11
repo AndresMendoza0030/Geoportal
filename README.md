@@ -10,4 +10,4 @@ Aplicación web que muestra mapas donde se localizacon los centros de asistencia
 
 
 ## Licencias 📄:
-Se tomó como proyecto base el repositorio https://github.com/nmendozaricaldi/Spring-Boot-Leaflet , el cual no posee ninguna licencia; sin embargo, se estimó que este sigue las reglas y requerimientos apropiados para el proyecto, asimismo se considera utilizar la licencia [GPL v3](https://www.gnu.org/licenses/gpl-3.0.html) para el desarrollo
+Se tomó como proyecto base el repositorio https://github.com/MaryBenitez/Geoportal-Vacunacion , el cual no posee ninguna licencia; sin embargo, se estimó que este sigue las reglas y requerimientos apropiados para el proyecto, asimismo se considera utilizar la licencia [GPL v3](https://www.gnu.org/licenses/gpl-3.0.html) para el desarrollo
