@@ -123,15 +123,19 @@
                             </tr>
                         </thead>
                         <tbody class="bg-white divide-y divide-gray-200">
-                            <th:block th:each="centro, row : ${centros}">
-                                <tr th:each="v : ${centro}">
-                                    <td th:text="${v.id}" class="px-6 py-4 whitespace-nowrap"></td>
-                                    <td th:text="${v.nombre}" class="px-6 py-4 whitespace-nowrap"></td>
-                                    <td th:text="${v.direccion}" class="px-6 py-4 whitespace-nowrap"></td>
-                                    <td th:text="${v.municipio}" class="px-6 py-4 whitespace-nowrap"></td>
+                            <th:block th:each="centro : ${centros}">
+                                <tr>
+                                    <td th:text="${centro.id}" class="px-6 py-4 whitespace-nowrap"></td>
+                                    <td class="px-6 py-4 whitespace-nowrap">
+                                        <a th:href="@{/map/informacion(id=${centro.id})}" class="text-blue-500 hover:text-blue-700" th:text="${centro.nombre}"></a>
+                                    </td>
+                                    <td th:text="${centro.direccion}" class="px-6 py-4 whitespace-nowrap"></td>
+                                    <td th:text="${centro.municipio}" class="px-6 py-4 whitespace-nowrap"></td>
                                 </tr>
                             </th:block>
                         </tbody>
+                        
+                        
                     </table> </div>
             </div>
            
