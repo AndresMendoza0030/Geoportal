@@ -6,6 +6,8 @@
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css"/>
     <link rel="stylesheet" href="https://unpkg.com/leaflet@1.7.1/dist/leaflet.css"/>
     <link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined" rel="stylesheet" />
+    <link rel="stylesheet" href="/css/styles.css" th:href="@{/css/styles.css}"/>
+        
     <style>
         .star-rating {
             display: flex;
@@ -41,7 +43,47 @@
         }
     </style>
 </head>
+
 <body class="bg-gray-100">
+    
+    <nav class="bg-white shadow-lg">
+        <div class="px-2 mx-auto ">
+            <div class="flex justify-between">
+                <div class="flex space-x-2">
+                    <!-- logo -->
+                    <div>
+                        <a href="#" class="flex items-center  py-3 px-2 text-gray-700 hover:text-gray-900" style="margin-bottom: 10px; ">
+                            <img src="/images/alfiler.png" alt="Logo" class="md:hidden " style="width:40px; height: 40px; margin-top: -12px; "/>
+                            <span class="font-bold website-name">Geoportal Centros de Asistencia Médica</span>
+                        </a>
+                    </div>
+                    <!-- primary nav -->
+                    <div class="hidden md:flex items-center space-x-1" style="margin-bottom: 10px">
+                        <a th:href="@{/map/index}" class="py-3 px-3 text-gray-700 hover:text-gray-900">Clinicas Comunales</a>
+                        <a th:href="@{/map/personas}" class="py-3 px-3 text-gray-700 hover:text-gray-900">Unidades Médicas</a>
+                    </div>
+                </div>
+                <!-- secondary nav -->
+                <div class="hidden md:flex items-center space-x-1">
+                    <div th:replace="index::logout"></div>
+                </div>
+                <!-- mobile button goes here -->
+                <div class="md:hidden flex items-center" style="width:40px; height: 40px; margin-top: 8px; ">
+                    <button class="mobile-menu-button">
+                    <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16m-7 6h7"></path></svg>
+                    </button>
+                </div>
+                  <!-- mobile menu -->
+                <div class="mobile-menu hidden">
+                    <a th:href="@{/map/index}" class="block py-2 px-4 text-sm text-gray-700 hover:bg-gray-100">Clinicas Comunales</a>
+                    <a th:href="@{/map/personas}" class="block py-2 px-4 text-sm text-gray-700 hover:bg-gray-100">Unidades Médicas</a>
+                </div>
+            </div>
+            
+        </div>
+      
+        
+    </nav>
     <div class="max-w-lg mx-auto mt-8 bg-white border border-gray-200 rounded-lg shadow-md">
         <div id="map" class="w-1/2"></div>
         <div class="p-4">
@@ -67,7 +109,7 @@
                 <p><strong>Municipio:</strong> <span th:text="${clinica.municipio}">Municipio de la Clínica</span></p>
                 <p><strong>Zona:</strong> <span th:text="${clinica.zona}">Zona de la Clínica</span></p>
                 <details class="mb-4">
-                <summary><strong>Horario:</strong><span th:text="${clinica.horarioInicioSemana}">Horario Inicio Semana</span> - <span th:text="${clinica.horarioFinSemana}">Horario Fin Semana</span></summary>
+                <summary><strong>Horario: </strong><span th:text="${clinica.horarioInicioSemana}">Horario Inicio Semana</span> - <span th:text="${clinica.horarioFinSemana}">Horario Fin Semana</span></summary>
                
                 <summary><strong>Horario fines de semana:</strong> <span th:text="${clinica.horarioInicioFinde}">Horario Inicio Fines de Semana</span> - <span th:text="${clinica.horarioFinFinde}">Horario Fin Fines de Semana</span></summary>
                 </details>
