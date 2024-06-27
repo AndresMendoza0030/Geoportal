@@ -5,6 +5,7 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+import java.util.Optional;
 
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServletRequest;
@@ -122,5 +123,38 @@ public class LeafletMapController {
 
 	
 	} 
+	
+	@GetMapping("/informacion")
+public ModelAndView mostrarInformacion(@RequestParam("id") int id) {
+    List<String> debugMessages = new ArrayList<>();
+    debugMessages.add("Handling request to /informacion with id: " + id);
+    
+    ModelAndView mav = new ModelAndView();
+    
+    try {
+        Optional<ClinicaComunal> clinicaOpt = centroVacunacionService.clinicaComunalGetOne(id);
+        if (!clinicaOpt.isPresent()) {
+            debugMessages.add("Clinica no encontrada con id: " + id);
+            mav.addObject("error", "Clinica no encontrada");
+            mav.addObject("debugMessages", debugMessages);
+            mav.setViewName("error");
+            return mav;
+        }
+
+        ClinicaComunal clinica = clinicaOpt.get();
+        mav.addObject("clinica", clinica);
+        debugMessages.add("Returning ModelAndView for /informacion with clinica: " + clinica);
+        mav.setViewName("map/informacion");
+    } catch (Exception e) {
+        debugMessages.add("Error al manejar la solicitud a /informacion");
+        debugMessages.add(e.getMessage());
+        mav.addObject("error", e.getMessage());
+        mav.setViewName("error");
+    }
+    
+    mav.addObject("debugMessages", debugMessages);
+    return mav;
+}
+
 
 }
