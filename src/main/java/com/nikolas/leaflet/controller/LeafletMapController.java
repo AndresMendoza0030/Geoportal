@@ -84,7 +84,7 @@ public class LeafletMapController {
     }
 
 
-	@RequestMapping(value = "/personas")
+	@RequestMapping(value = "/unidades")
 	public ModelAndView ingresarPersona() {
 
 		Map<String, Object> myModel = new HashMap<String, Object>();
@@ -95,7 +95,7 @@ public class LeafletMapController {
 		List<UnidadMedica> centros2 = UnidadMedicaService.unidadMedicaGetAll();
 		mav.addObject("centros",centros2);
 		mav.addObject("model",myModel);
-		mav.setViewName("/map/personas");
+		mav.setViewName("/map/unidades");
 		return mav;
 
 	}
