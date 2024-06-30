@@ -129,6 +129,19 @@
                 </th:block>
                 </tbody>
             </table>
+            <div class="pagination-container">
+                <ul class="pagination-menu">
+                    <li th:if="${currentPage > 0}">
+                        <a th:href="@{/map/index(page=${currentPage - 1}, size=${size})}" class="pagination-link">Anterior</a>
+                    </li>
+                    <li th:each="i : ${#numbers.sequence(0, totalPages - 1)}">
+                        <a th:href="@{/map/index(page=${i}, size=${size})}" th:text="${i + 1}" class="pagination-link"></a>
+                    </li>
+                    <li th:if="${currentPage < totalPages - 1}">
+                        <a th:href="@{/map/index(page=${currentPage + 1}, size=${size})}" class="pagination-link">Siguiente</a>
+                    </li>
+                </ul>
+            </div>
         </div>
     </div>
 </div>
@@ -144,7 +157,7 @@
 
     var serverContext = [[@{/}]];
     var model_map = [[${model.map}]];
-    var clinicasComunales = [[${centros}]];
+    var clinicasComunales = [[${centrosMapa}]];
     var mymap = L.map('mapid').setView([13.693399179677684, -89.21802884256014], 13);
     new L.tileLayer('http://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
         maxZoom: 19

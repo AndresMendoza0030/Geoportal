@@ -4,7 +4,7 @@ import com.google.gson.Gson;
 import com.google.gson.JsonObject;
 import com.google.gson.JsonArray;
 import com.nikolas.leaflet.domain.ClinicaComunal;
-import com.nikolas.leaflet.service.CentroVacunacionService;
+import com.nikolas.leaflet.service.ClinicaComunalService;
 import com.nikolas.leaflet.dto.DialogFlowRequest;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -21,7 +21,7 @@ import java.util.Map;
 public class DialogflowWebhookController {
 
     @Autowired
-    private CentroVacunacionService centroVacunacionService;
+    private ClinicaComunalService ClinicaComunalService;
 
     @PostMapping("/webhook")
     public ResponseEntity<JsonObject> handleDialogflowRequest(@RequestBody DialogFlowRequest request) {
@@ -31,7 +31,7 @@ public class DialogflowWebhookController {
                 Map<String, Object> params = request.getQueryResult().getParameters();
                 Map<String, String> location = (Map<String, String>) params.get("location");
                 String municipio = extractLocation(location);
-                List<ClinicaComunal> clinicas = centroVacunacionService.buscarPorMunicipio(municipio);
+                List<ClinicaComunal> clinicas = ClinicaComunalService.buscarPorMunicipio(municipio);
                 JsonObject responseJson = createFulfillmentMessageJson(municipio,clinicas);
                 return ResponseEntity.ok().body(responseJson);
             }
@@ -39,7 +39,7 @@ public class DialogflowWebhookController {
                 Map<String, Object> params = request.getQueryResult().getParameters();
                 Map<String, String> location = (Map<String, String>) params.get("location");
                 String municipio = location.get("business-name");
-                List<ClinicaComunal> clinicas = centroVacunacionService.findByNombreContaining(municipio);
+                List<ClinicaComunal> clinicas = ClinicaComunalService.findByNombreContaining(municipio);
                 JsonObject responseJson = createFulfillmentMessageJson2(municipio,clinicas);
                 return ResponseEntity.ok().body(responseJson);
             }

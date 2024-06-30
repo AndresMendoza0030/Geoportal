@@ -86,3 +86,40 @@
 .navbar {
     z-index: 10000;
 }
+.pagination-container {
+    text-align: center;
+    margin-top: 20px;
+}
+
+.pagination-menu {
+    display: inline-flex;
+    list-style: none;
+    padding: 0;
+    margin: 0;
+}
+
+.pagination-menu li {
+    margin: 0 5px;
+}
+
+.pagination-link {
+    display: block;
+    padding: 10px 15px;
+    text-decoration: none;
+    color: #007bff;
+    border: 1px solid #ddd;
+    border-radius: 4px;
+    background-color: #fff;
+}
+
+.pagination-link:hover {
+    background-color: #f0f0f0;
+    border-color: #ccc;
+}
+
+.pagination-link:active,
+.pagination-link:focus {
+    outline: none;
+    background-color: #e9ecef;
+    border-color: #ddd;
+}

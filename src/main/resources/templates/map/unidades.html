@@ -90,37 +90,66 @@
 		<div id="mapid"></div>
         <div class="mt-2 bg-white p-6 rounded-lg shadow-md">
             <h1 class="text-xl font-bold text-center mb-4">Unidades Médicas</h1>
+            <div class="flex-end">
+                <label for="municipioFilter" class="block text-sm font-medium text-gray-700">Filtrar por Municipio:</label>
+                <div class="dropdown">
+                    <button class="btn btn-secondary dropdown-toggle" type="button" id="dropdownMenuButton"
+                            data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"
+                            style="background-color: white; color: black;">
+                        Seleccionar Municipios
+                    </button>
+                    <div class="dropdown-menu" aria-labelledby="dropdownMenuButton"
+                         style="background-color: white; color: black;">
+                        <th:block th:each="municipio, index : ${municipios}">
+                            <a class="dropdown-item">
+                                <input type="checkbox" id="municipio_${index}" th:value="${municipio}"
+                                       th:data-value="${municipio}"/>
+                                <label th:for="'municipio' + ${index}" th:text="${municipio}">Municipio</label>
+                            </a>
+                        </th:block>
+                        <div class="text-center">
+                            <button id="updateDataButton" class="btn btn-primary mt-2">Actualizar</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
             <table class="min-w-full divide-y divide-gray-200">
                 <thead class="bg-gray-700 text-white">
                     <tr>
-                        <th scope="col" class="px-6 py-3 text-left text-xs font-medium uppercase tracking-wider">
-                            #
-                        </th>
-                        <th scope="col" class="px-6 py-3 text-left text-xs font-medium uppercase tracking-wider">
-                            Nombre
-                        </th>
-                        <th scope="col" class="px-6 py-3 text-left text-xs font-medium uppercase tracking-wider">
-                            Direccion
-                        </th>
-                        <th scope="col" class="px-6 py-3 text-left text-xs font-medium uppercase tracking-wider">
-                            Municipio
-                        </th>
+                        <th scope="col" class="px-6 py-3 text-left text-xs font-medium uppercase tracking-wider">#</th>
+                        <th scope="col" class="px-6 py-3 text-left text-xs font-medium uppercase tracking-wider">Nombre</th>
+                        <th scope="col" class="px-6 py-3 text-left text-xs font-medium uppercase tracking-wider">Direccion</th>
+                        <th scope="col" class="px-6 py-3 text-left text-xs font-medium uppercase tracking-wider">Municipio</th>
                     </tr>
                 </thead>
                 <tbody class="bg-white divide-y divide-gray-200">
                     <th:block th:each="centro, row : ${centros}">
-                        <tr th:each="v : ${centro}">
-                            <td th:text="${v.id}" class="px-6 py-4 whitespace-nowrap"></td>
+                        <tr>
+                            <td th:text="${centro.id}" class="px-6 py-4 whitespace-nowrap"></td>
                             <td class="px-6 py-4 whitespace-nowrap">
-                                <a th:href="@{/map/informacion(id=${v.id})}"
-                                   class="text-blue-500 hover:text-blue-700" th:text="${v.nombre}"></a>
+                                <a th:href="@{/map/informacion(id=${centro.id})}" class="text-blue-500 hover:text-blue-700" th:text="${centro.nombre}"></a>
                             </td>
-                            <td th:text="${v.direccion}" class="px-6 py-4 whitespace-nowrap"></td>
-                            <td th:text="${v.municipio}" class="px-6 py-4 whitespace-nowrap"></td>
+                            <td th:text="${centro.direccion}" class="px-6 py-4 whitespace-nowrap"></td>
+                            <td th:text="${centro.municipio}" class="px-6 py-4 whitespace-nowrap"></td>
                         </tr>
                     </th:block>
                 </tbody>
-            </table> 
+            </table>
+            <div class="pagination-container">
+                <ul class="pagination-menu">
+                    <li th:if="${currentPage > 0}">
+                        <a th:href="@{/map/unidades(page=${currentPage - 1}, size=${size})}" class="pagination-link">Anterior</a>
+                    </li>
+                    <li th:each="i : ${#numbers.sequence(0, totalPages - 1)}">
+                        <a th:href="@{/map/unidades(page=${i}, size=${size})}" th:text="${i + 1}" class="pagination-link"></a>
+                    </li>
+                    <li th:if="${currentPage < totalPages - 1}">
+                        <a th:href="@{/map/unidades(page=${currentPage + 1}, size=${size})}" class="pagination-link">Siguiente</a>
+                    </li>
+                </ul>
+            </div>
+        
+        
         </div>
        
 </div>
@@ -136,7 +165,7 @@
 
     var serverContext = [[@{/}]];
     var model_map = [[${model.map}]];
-    var clinicasComunales = [[${centros}]];
+    var clinicasComunales = [[${centrosMapa}]];
     var mymap = L.map('mapid').setView([13.693399179677684, -89.21802884256014], 13);
     new L.tileLayer('http://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
         maxZoom: 19

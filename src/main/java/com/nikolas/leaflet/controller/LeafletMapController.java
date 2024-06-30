@@ -14,13 +14,15 @@ import javax.validation.Valid;
 
 import com.nikolas.leaflet.domain.ClinicaComunal;
 import com.nikolas.leaflet.domain.UnidadMedica;
-import com.nikolas.leaflet.service.CentroVacunacionService;
+import com.nikolas.leaflet.service.ClinicaComunalService;
 import com.nikolas.leaflet.service.UnidadMedicaService;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 import org.slf4j.Marker;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.PageRequest;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -51,29 +53,49 @@ public class LeafletMapController {
 
 
 	@Autowired
-	CentroVacunacionService centroVacunacionService;
+	ClinicaComunalService ClinicaComunalService;
 
 	@Autowired
 	UnidadMedicaService UnidadMedicaService;
 
 	
 	@RequestMapping(value = "/index")
-	public ModelAndView handleRequest(HttpServletRequest request, HttpServletResponse response)
-			throws ServletException, IOException {
+public ModelAndView handleRequest(HttpServletRequest request, HttpServletResponse response,
+                                  @RequestParam(required = false, defaultValue = "0") int page,
+                                  @RequestParam(required = false, defaultValue = "10") int size)
+        throws ServletException, IOException {
 
-		Map<String, Object> myModel = new HashMap<String, Object>();
+    ModelAndView mav = new ModelAndView();
+    try {
+        Map<String, Object> myModel = new HashMap<>();
+        final LeafletMap leafletMap = this.leafletMapService.leafletMap(2);
+        myModel.put("map", leafletMap);
 
-		final LeafletMap  leafletMap = this.leafletMapService.leafletMap(2);
-		myModel.put("map", leafletMap);
-		ModelAndView mav = new ModelAndView();
-		List<ClinicaComunal> cvList = centroVacunacionService.clinicaComunalGetAll();
-		List<String> municipios = centroVacunacionService.getDistinctMunicipios();
-		mav.addObject("centros",cvList);
-		mav.addObject("model",myModel);
-		mav.addObject("municipios", municipios);
-		return mav;
+        // Obtener todas las clínicas comunales para el mapa
+        List<ClinicaComunal> cvList = ClinicaComunalService.clinicaComunalGetAll();
 
-	}
+        // Obtener clínicas comunales paginadas para la tabla
+        Pageable pageable = PageRequest.of(page, size);
+        Page<ClinicaComunal> pagedClinicas = ClinicaComunalService.ClinicaComunalGetAll(pageable);
+
+        List<String> municipios = ClinicaComunalService.getDistinctMunicipios();
+
+        mav.addObject("centrosMapa", cvList); // Datos completos para el mapa
+        mav.addObject("centros", pagedClinicas.getContent()); // Datos paginados para la tabla
+        mav.addObject("model", myModel);
+        mav.addObject("municipios", municipios);
+        mav.addObject("currentPage", page);
+        mav.addObject("totalPages", pagedClinicas.getTotalPages());
+        mav.addObject("totalItems", pagedClinicas.getTotalElements());
+        mav.addObject("size", size);
+
+        mav.setViewName("/map/index");
+    } catch (Exception e) {
+        mav.setViewName("error");
+        mav.addObject("message", e.getMessage());
+    }
+    return mav;
+}
 	
     @RequestMapping(value = "/update", method = RequestMethod.POST)
     @ResponseBody
@@ -84,21 +106,39 @@ public class LeafletMapController {
     }
 
 
-	@RequestMapping(value = "/unidades")
-	public ModelAndView ingresarPersona() {
+	@GetMapping("/unidades")
+public ModelAndView ingresarPersona(@RequestParam(required = false, defaultValue = "0") int page,
+                                    @RequestParam(required = false, defaultValue = "10") int size) {
 
-		Map<String, Object> myModel = new HashMap<String, Object>();
+    ModelAndView mav = new ModelAndView();
+    try {
+        Map<String, Object> myModel = new HashMap<>();
+        final LeafletMap leafletMap = this.leafletMapService.leafletMap(2);
+        myModel.put("map", leafletMap);
 
-		final LeafletMap  leafletMap = this.leafletMapService.leafletMap(2);
-		myModel.put("map", leafletMap);
-		ModelAndView mav = new ModelAndView();
-		List<UnidadMedica> centros2 = UnidadMedicaService.unidadMedicaGetAll();
-		mav.addObject("centros",centros2);
-		mav.addObject("model",myModel);
-		mav.setViewName("/map/unidades");
-		return mav;
+        // Obtener todas las unidades médicas para el mapa
+        List<UnidadMedica> todasUnidades = UnidadMedicaService.unidadMedicaGetAll();
 
-	}
+        // Obtener unidades médicas paginadas para la tabla
+        Pageable pageable = PageRequest.of(page, size);
+        Page<UnidadMedica> centrosPage = UnidadMedicaService.unidadMedicaGetAll(pageable);
+
+        mav.addObject("centrosMapa", todasUnidades); // Datos completos para el mapa
+        mav.addObject("centros", centrosPage.getContent()); // Datos paginados para la tabla
+        mav.addObject("model", myModel);
+        mav.addObject("currentPage", page);
+        mav.addObject("totalPages", centrosPage.getTotalPages());
+        mav.addObject("totalItems", centrosPage.getTotalElements());
+        mav.addObject("size", size); 
+        List<String> municipios = UnidadMedicaService.getDistinctMunicipios();
+        mav.addObject("municipios", municipios);
+        mav.setViewName("/map/unidades");
+    } catch (Exception e) {
+        mav.setViewName("error");
+        mav.addObject("message", e.getMessage());
+    }
+    return mav;
+}
 
 	@RequestMapping("/ipersonas")
 	public ModelAndView personaVacunada(){
@@ -116,7 +156,7 @@ public class LeafletMapController {
 		final LeafletMap  leafletMap = this.leafletMapService.leafletMap(2);
 		myModel.put("map", leafletMap);
 		ModelAndView mav = new ModelAndView();
-		List<ClinicaComunal> unidades = centroVacunacionService.clinicaComunalGetAll();
+		List<ClinicaComunal> unidades = ClinicaComunalService.clinicaComunalGetAll();
 		mav.addObject("centros",unidades);
 		mav.addObject("model",myModel);
 		return mav;
@@ -132,7 +172,7 @@ public ModelAndView mostrarInformacion(@RequestParam("id") int id) {
     ModelAndView mav = new ModelAndView();
     
     try {
-        Optional<ClinicaComunal> clinicaOpt = centroVacunacionService.clinicaComunalGetOne(id);
+        Optional<ClinicaComunal> clinicaOpt = ClinicaComunalService.clinicaComunalGetOne(id);
         if (!clinicaOpt.isPresent()) {
             debugMessages.add("Clinica no encontrada con id: " + id);
             mav.addObject("error", "Clinica no encontrada");
