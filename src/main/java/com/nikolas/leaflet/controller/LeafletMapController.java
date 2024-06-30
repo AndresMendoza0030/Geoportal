@@ -118,10 +118,17 @@ public ModelAndView ingresarPersona(@RequestParam(required = false, defaultValue
 
         // Obtener todas las unidades médicas para el mapa
         List<UnidadMedica> todasUnidades = UnidadMedicaService.unidadMedicaGetAll();
+        System.out.println("Total de unidades médicas para el mapa: " + todasUnidades.size());
 
         // Obtener unidades médicas paginadas para la tabla
         Pageable pageable = PageRequest.of(page, size);
         Page<UnidadMedica> centrosPage = UnidadMedicaService.unidadMedicaGetAll(pageable);
+        System.out.println("Total de unidades médicas paginadas: " + centrosPage.getTotalElements());
+
+        // Obtener lista de municipios
+        List<String> municipios = UnidadMedicaService.getDistinctMunicipios();
+        System.out.println("Total de municipios: " + municipios.size());
+        System.out.println("Lista de municipios: " + municipios);
 
         mav.addObject("centrosMapa", todasUnidades); // Datos completos para el mapa
         mav.addObject("centros", centrosPage.getContent()); // Datos paginados para la tabla
@@ -129,16 +136,18 @@ public ModelAndView ingresarPersona(@RequestParam(required = false, defaultValue
         mav.addObject("currentPage", page);
         mav.addObject("totalPages", centrosPage.getTotalPages());
         mav.addObject("totalItems", centrosPage.getTotalElements());
-        mav.addObject("size", size); 
-        List<String> municipios = UnidadMedicaService.getDistinctMunicipios();
+        mav.addObject("size", size);
         mav.addObject("municipios", municipios);
         mav.setViewName("/map/unidades");
     } catch (Exception e) {
+        System.err.println("Error al procesar la solicitud: " + e.getMessage());
+        e.printStackTrace();
         mav.setViewName("error");
         mav.addObject("message", e.getMessage());
     }
     return mav;
 }
+
 
 	@RequestMapping("/ipersonas")
 	public ModelAndView personaVacunada(){

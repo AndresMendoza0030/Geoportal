@@ -28,6 +28,11 @@
             --df-messenger-send-icon: ##374151;
             --df-messenger-user-message: #479b3d;
         }
+        
+        .custom-dropdown-menu {
+            max-height: 200px;
+            overflow-y: auto;
+        }
     </style>
      <link rel="icon" href="/images/alfiler.png" type="image/png">
 </head>
@@ -81,7 +86,7 @@
                             style="background-color: white; color: black;">
                         Seleccionar Municipios
                     </button>
-                    <div class="dropdown-menu" aria-labelledby="dropdownMenuButton"
+                    <div class="dropdown-menu custom-dropdown-menu" aria-labelledby="dropdownMenuButton"
                          style="background-color: white; color: black;">
                         <th:block th:each="municipio, index : ${municipios}">
                             <a class="dropdown-item">
@@ -414,4 +419,5 @@
     });
 </script>
 </body>
+
 </html>
