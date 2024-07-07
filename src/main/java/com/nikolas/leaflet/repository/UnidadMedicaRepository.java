@@ -1,5 +1,6 @@
 package com.nikolas.leaflet.repository;
 
+import com.nikolas.leaflet.domain.ClinicaComunal;
 import com.nikolas.leaflet.domain.UnidadMedica;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
@@ -13,6 +14,8 @@ public interface UnidadMedicaRepository extends JpaRepository<UnidadMedica, Inte
     Optional<UnidadMedica> findById(Integer id);
     List<UnidadMedica> findAll();
     List<UnidadMedica> findByMunicipio(String municipio);
+    List<UnidadMedica> findByNombreContaining(String nombre);
+   
     @Query("SELECT DISTINCT u.municipio FROM UnidadMedica u")
     List<String> findDistinctMunicipios();
     // Método con paginación

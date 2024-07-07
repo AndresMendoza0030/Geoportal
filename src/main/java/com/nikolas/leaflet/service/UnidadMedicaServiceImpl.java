@@ -1,5 +1,6 @@
 package com.nikolas.leaflet.service;
 
+import com.nikolas.leaflet.domain.ClinicaComunal;
 import com.nikolas.leaflet.domain.UnidadMedica;
 import com.nikolas.leaflet.repository.ClinicaComunalRepository;
 import com.nikolas.leaflet.repository.UnidadMedicaRepository;
@@ -43,5 +44,9 @@ public class UnidadMedicaServiceImpl implements UnidadMedicaService {
      }
       public List<String> getDistinctMunicipios() {
         return  unidadMedicaRepository.findDistinctMunicipios();
+    }
+    @Override
+    public List<UnidadMedica>  findByNombreContaining(String nombre) {
+        return unidadMedicaRepository.findByNombreContaining(nombre);
     }
 }

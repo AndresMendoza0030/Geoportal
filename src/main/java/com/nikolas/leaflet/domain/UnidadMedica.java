@@ -130,6 +130,9 @@ public class UnidadMedica implements Serializable {
     public String getHorarioFinFinde() {
         return horarioFinFinde;
     }
+    public String getHorarioInicioSemana() {
+        return horarioInicioSemana;
+    }
 
     public void setHorarioFinFinde(String horarioFinFinde) {
         this.horarioFinFinde = horarioFinFinde;

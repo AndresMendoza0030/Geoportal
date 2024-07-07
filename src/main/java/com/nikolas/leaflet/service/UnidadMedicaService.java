@@ -1,5 +1,6 @@
 package com.nikolas.leaflet.service;
 
+import com.nikolas.leaflet.domain.ClinicaComunal;
 import com.nikolas.leaflet.domain.UnidadMedica;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
@@ -12,6 +13,7 @@ public interface UnidadMedicaService extends Serializable {
     Optional<UnidadMedica> unidadMedicaGetOne(Integer id);
     List<UnidadMedica> unidadMedicaGetAll();
     List<UnidadMedica> buscarPorMunicipio(String municipio);
+    List<UnidadMedica> findByNombreContaining(String nombre);
     List<String> getDistinctMunicipios(); 
     // Nuevo método para paginación
     Page<UnidadMedica> buscarPorMunicipio(String municipio, Pageable pageable);
