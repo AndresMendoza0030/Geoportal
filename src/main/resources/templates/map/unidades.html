@@ -106,9 +106,7 @@
             <table class="min-w-full overflow-x-auto divide-y divide-gray-200">
                 <thead class="bg-gray-700 text-white">
                 <tr>
-                    <th scope="col" class="px-6 py-3 text-left font-medium uppercase tracking-wider">
-                        #
-                    </th>
+                   
                     <th scope="col" class="px-6 py-3 text-left font-medium uppercase tracking-wider">
                         Nombre
                     </th>
@@ -123,7 +121,7 @@
                 <tbody class="bg-white divide-y divide-gray-200">
                 <th:block th:each="centro : ${centros}">
                     <tr>
-                        <td th:text="${centro.id}" class="px-6 py-4 whitespace-nowrap"></td>
+                      
                         <td class="px-6 py-4 whitespace-nowrap">
                             <a th:href="@{/map/informacion(id=${centro.id})}"
                                class="text-blue-500 hover:text-blue-700" th:text="${centro.nombre}"></a>
