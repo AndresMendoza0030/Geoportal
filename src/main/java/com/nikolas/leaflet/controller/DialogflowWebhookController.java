@@ -42,7 +42,7 @@ public class DialogflowWebhookController {
             if ("buscarHorarioClinica".equals(intentName)) {
                 Map<String, Object> params = request.getQueryResult().getParameters();
                 Map<String, String> location = (Map<String, String>) params.get("location");
-                String municipio = location.get("business-name");
+                String municipio = extractLocation(location);
                 List<ClinicaComunal> clinicas = ClinicaComunalService.findByNombreContaining(municipio);
                 JsonObject responseJson = createFulfillmentMessageJson2(municipio,clinicas);
                 return ResponseEntity.ok().body(responseJson);
@@ -59,11 +59,9 @@ public class DialogflowWebhookController {
             if ("buscarHorarioUnidadMedica".equals(intentName)) {
                 Map<String, Object> params = request.getQueryResult().getParameters();
                 Map<String, String> location = (Map<String, String>) params.get("location");
-                String municipio = location.get("business-name");
+                String municipio = extractLocation(location);
                 
-                if (municipio == null || municipio.isEmpty()) {
-                    municipio = location.get("street-address");
-                }
+               
                 
                 List<UnidadMedica> unidadesMedicas = UnidadMedicaService.findByNombreContaining(municipio);
                 JsonObject responseJson = createFulfillmentMessageJson4(municipio, unidadesMedicas);
@@ -73,8 +71,7 @@ public class DialogflowWebhookController {
             if ("ServiciosOfrecidos".equals(intentName)) {
                 JsonObject responseJson = createFulfillmentMessageServiciosOfrecidos();
                 return ResponseEntity.ok().body(responseJson);
-            }
-            
+            } 
             JsonObject defaultMessage = new JsonObject();
             defaultMessage.addProperty("fulfillmentText", "No valid intent matched.");
             return ResponseEntity.ok(defaultMessage);
@@ -186,18 +183,7 @@ public class DialogflowWebhookController {
 
         return fulfillmentMessage;
     }
-    public String extractLocation(Map<String, String> location) {
-        // Lista de campos de ubicación en orden de prioridad
-        String[] locationFields = {"city", "subadmin-area", "admin-area", "business-name", "street-address"};
-        
-        for (String field : locationFields) {
-            String value = location.get(field);
-            if (value != null && !value.isEmpty()) {
-                return value;
-            }
-        }
-        return null; // o considera devolver un valor predeterminado o lanzar una excepción si es necesario
-    }
+   
     private JsonObject createFulfillmentMessageJson3(String municipio, List<UnidadMedica> clinicas) {
         JsonObject fulfillmentMessage = new JsonObject();
         JsonArray fulfillmentMessages = new JsonArray();
@@ -351,6 +337,17 @@ public class DialogflowWebhookController {
         
         return fulfillmentMessage;
     }
-    
+    public String extractLocation(Map<String, String> location) {
+        // Lista de campos de ubicación en orden de prioridad
+        String[] locationFields = {"city", "subadmin-area", "admin-area", "business-name", "street-address"};
+        
+        for (String field : locationFields) {
+            String value = location.get(field);
+            if (value != null && !value.isEmpty()) {
+                return value;
+            }
+        }
+        return null; // o considera devolver un valor predeterminado o lanzar una excepción si es necesario
+    }
     
 }
