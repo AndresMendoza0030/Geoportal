@@ -27,6 +27,8 @@
             --df-messenger-font-color: white;
             --df-messenger-send-icon: #374151;
             --df-messenger-user-message: #479b3d;
+            --df-messenger-chat-bubble-background:#479b3d;
+            --df-messenger-chat-bubble-icon-color:#479b3d;
         }
         
         .custom-dropdown-menu {
@@ -152,7 +154,7 @@
 <!-- Añadir el botón de micrófono -->
 <button id="voiceButton">🎤 Hablar</button>
 <audio id="botAudio" controls style="display: none;"></audio>
-<df-messenger intent="WELCOME" chat-title="GeoAgente" chat-icon="https://i.ibb.co/3y56CMJ/alfiler.png" agent-id="918c7b00-fc13-47e3-84c6-41fd9dff493e" language-code="es">
+<df-messenger intent="WELCOME" chat-title="GeoAgente" chat-icon="https://i.ibb.co/fvbZ8ZP/logo2.png" agent-id="918c7b00-fc13-47e3-84c6-41fd9dff493e" language-code="es">
     
 </df-messenger>
 
@@ -165,7 +167,7 @@
  
     // Mapa y otras funcionalidades previas...
     var customIcon = L.icon({
-        iconUrl: '/images/alfiler.png',
+        iconUrl: '/images/alfiler2.png',
         iconSize: [42, 42],
         iconAnchor: [16, 32],
         popupAnchor: [0, -32]
@@ -253,8 +255,8 @@
         }
 
         userMarker = L.marker(e.latlng).addTo(mymap)
-            .bindPopup("You are within " + radius + " meters from this point").openPopup();
-        userCircle = L.circle(e.latlng, radius).addTo(mymap);
+            .bindPopup("Usted se encuentra dentro de  " + radius + " metros de este punto").openPopup();
+        
 
         var nearestClinic = findNearestClinic(e.latlng.lat, e.latlng.lng, clinicasComunales);
 

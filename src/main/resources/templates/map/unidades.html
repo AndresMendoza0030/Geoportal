@@ -149,7 +149,7 @@
     </div>
 </div>
 <script src="https://www.gstatic.com/dialogflow-console/fast/messenger/bootstrap.js?v=1"></script>
-<df-messenger intent="WELCOME" chat-title="GeoAgente" chat-icon="https://i.ibb.co/3y56CMJ/alfiler.png" agent-id="918c7b00-fc13-47e3-84c6-41fd9dff493e" language-code="es">
+<df-messenger intent="WELCOME" chat-title="GeoAgente" chat-icon="https://i.ibb.co/fvbZ8ZP/logo2.png" agent-id="918c7b00-fc13-47e3-84c6-41fd9dff493e" language-code="es">
     
 </df-messenger>
 <script th:inline="javascript">
@@ -242,8 +242,8 @@
         }
 
         userMarker = L.marker(e.latlng).addTo(mymap)
-            .bindPopup("You are within " + radius + " meters from this point").openPopup();
-        userCircle = L.circle(e.latlng, radius).addTo(mymap);
+            .bindPopup("Usted se encuentra dentro de  " + radius + " metros de este punto").openPopup();
+       
 
         var nearestClinic = findNearestClinic(e.latlng.lat, e.latlng.lng, clinicasComunales);
 
