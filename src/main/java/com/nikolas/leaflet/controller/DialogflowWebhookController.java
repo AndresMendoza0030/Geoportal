@@ -35,6 +35,9 @@ public class DialogflowWebhookController {
                 JsonObject responseJson = createFulfillmentMessageJson(municipio,clinicas);
                 return ResponseEntity.ok().body(responseJson);
             }
+            
+
+            
             if ("buscarHorarioClinica".equals(intentName)) {
                 Map<String, Object> params = request.getQueryResult().getParameters();
                 Map<String, String> location = (Map<String, String>) params.get("location");
