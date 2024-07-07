@@ -35,9 +35,6 @@ public class DialogflowWebhookController {
                 JsonObject responseJson = createFulfillmentMessageJson(municipio,clinicas);
                 return ResponseEntity.ok().body(responseJson);
             }
-            
-
-            
             if ("buscarHorarioClinica".equals(intentName)) {
                 Map<String, Object> params = request.getQueryResult().getParameters();
                 Map<String, String> location = (Map<String, String>) params.get("location");
@@ -46,11 +43,6 @@ public class DialogflowWebhookController {
                 JsonObject responseJson = createFulfillmentMessageJson2(municipio,clinicas);
                 return ResponseEntity.ok().body(responseJson);
             }
-            if ("ServiciosOfrecidos".equals(intentName)) {
-                JsonObject responseJson = createFulfillmentMessageServiciosOfrecidos();
-                return ResponseEntity.ok().body(responseJson);
-            } 
-          
             JsonObject defaultMessage = new JsonObject();
             defaultMessage.addProperty("fulfillmentText", "No valid intent matched.");
             return ResponseEntity.ok(defaultMessage);
@@ -174,57 +166,6 @@ public class DialogflowWebhookController {
         }
         return null; // o considera devolver un valor predeterminado o lanzar una excepción si es necesario
     }
-    private JsonObject createFulfillmentMessageServiciosOfrecidos() {
-        JsonObject fulfillmentMessage = new JsonObject();
-        JsonArray fulfillmentMessages = new JsonArray();
     
-        JsonArray richContentOuterArray = new JsonArray();
-        JsonArray richContentInnerArray = new JsonArray();
-    
-        String[] servicios = {
-            "Medicina General", "Emergencia", "Emergencia Pediátrica", "Odontología General", 
-            "Odontología Especializada", "Consulta de Especialidades", "Cirugía", 
-            "Coloproctología", "Medicina Interna", "Dermatología", "Pediatría", 
-            "Medicina del Trabajo", "Ginecoobstetricia", "Endocrinología", 
-            "Fisiatría", "Otorrinolaringología", "Perinatología", "Nefrología"
-        };
-    
-        for (String servicio : servicios) {
-            JsonObject listItem = new JsonObject();
-            listItem.addProperty("type", "list");
-            listItem.addProperty("title", servicio);
-            listItem.addProperty("subtitle", "Servicio de " + servicio);
-            
-            JsonObject eventObject = new JsonObject();
-            eventObject.addProperty("name", "");
-            eventObject.addProperty("languageCode", "");
-            eventObject.add("parameters", new JsonObject());
-            
-            listItem.add("event", eventObject);
-            richContentInnerArray.add(listItem);
-            
-            JsonObject dividerItem = new JsonObject();
-            dividerItem.addProperty("type", "divider");
-            richContentInnerArray.add(dividerItem);
-        }
-        
-        // Remove the last divider if not needed
-        if (richContentInnerArray.size() > 0) {
-            richContentInnerArray.remove(richContentInnerArray.size() - 1);
-        }
-        
-        richContentOuterArray.add(richContentInnerArray);
-    
-        JsonObject payloadObject = new JsonObject();
-        payloadObject.add("richContent", richContentOuterArray);
-        
-        JsonObject payloadMessage = new JsonObject();
-        payloadMessage.add("payload", payloadObject);
-        fulfillmentMessages.add(payloadMessage);
-    
-        fulfillmentMessage.add("fulfillmentMessages", fulfillmentMessages);
-        
-        return fulfillmentMessage;
-    }
     
 }
