@@ -10,4 +10,4 @@ Aplicación web que muestra mapas donde se localizacon los centros de asistencia
 
 
 ## Licencias 📄:
-Se tomó como proyecto base el repositorio https://github.com/MaryBenitez/Geoportal-Vacunacion , el cual  posee la GPL v3 licencia; por lo tanto, se estimó utilizar la licencia [GPL v3](https://www.gnu.org/licenses/gpl-3.0.html) para el desarrollo
+Se tomó como proyecto base el repositorio https://github.com/MaryBenitez/Geoportal-Vacunacion , el cual  posee la  licencia GPL v3; por lo tanto, se estimó utilizar la licencia [GPL v3](https://www.gnu.org/licenses/gpl-3.0.html) para el desarrollo
