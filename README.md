@@ -58,7 +58,7 @@ Para comenzar rápidamente con Geoportal de Centros de Asistencia Médica, sigue
 
 
 ## Licencias
-Se tomó como proyecto base el repositorio https://github.com/MaryBenitez/Geoportal-Vacunacion , el cual  posee la  licencia GPL v3; por lo tanto, se estimó utilizar la licencia [GPL v3](https://www.gnu.org/licenses/gpl-3.0.html) para el desarrollo
+Se tomó como proyecto base el repositorio https://github.com/MaryBenitez/Geoportal-Vacunacion , el cual  posee la  licencia GPL v3; por lo tanto, se estimó utilizar la licencia [GPL v3](https://www.gnu.org/licenses/gpl-3.0.html) para el desarrollo y luego de una auditoría del software utilizando la herramienta Scancode Toolkit
 
 ## Contribución
 ¡Agradecemos y valoramos las contribuciones a Geoportal de Centros de Asistencia Médica! Si estás interesado en contribuir al proyecto, te invitamos a seguir los pasos a continuación:
