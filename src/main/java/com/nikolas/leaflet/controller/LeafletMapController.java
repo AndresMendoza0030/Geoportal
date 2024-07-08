@@ -58,7 +58,7 @@ public class LeafletMapController {
 	@Autowired
 	UnidadMedicaService UnidadMedicaService;
 
-	
+	  // Vista principal que muestra tabla de clinicas y mapa
 	@RequestMapping(value = "/index")
 public ModelAndView handleRequest(HttpServletRequest request, HttpServletResponse response,
                                   @RequestParam(required = false, defaultValue = "0") int page,
@@ -96,7 +96,7 @@ public ModelAndView handleRequest(HttpServletRequest request, HttpServletRespons
     }
     return mav;
 }
-	
+	  // Ruta para actualizar mapa 
     @RequestMapping(value = "/update", method = RequestMethod.POST)
     @ResponseBody
     public GenericResponse registerUserAccount(@Valid final LeafletMap leafletMap, final HttpServletRequest request) {
@@ -105,7 +105,7 @@ public ModelAndView handleRequest(HttpServletRequest request, HttpServletRespons
         return new GenericResponse("success");
     }
 
-
+  // Vista  que muestra tabla de unidades y mapa
 	@GetMapping("/unidades")
 public ModelAndView ingresarPersona(@RequestParam(required = false, defaultValue = "0") int page,
                                     @RequestParam(required = false, defaultValue = "10") int size) {
@@ -149,30 +149,8 @@ public ModelAndView ingresarPersona(@RequestParam(required = false, defaultValue
 }
 
 
-	@RequestMapping("/ipersonas")
-	public ModelAndView personaVacunada(){
-		ModelAndView mav = new ModelAndView();
-		UnidadMedica personaVacunada = new UnidadMedica();
-		mav.addObject("personaVacunada",personaVacunada);
-		mav.setViewName("/map/ingresarPersonaVacunada");
-		return mav;
-	}
-	@RequestMapping("/inpersonas")
-	public ModelAndView inPersonaVacunada(@Valid @ModelAttribute UnidadMedica personaVacunada, BindingResult result){
-		
-		Map<String, Object> myModel = new HashMap<String, Object>();
-
-		final LeafletMap  leafletMap = this.leafletMapService.leafletMap(2);
-		myModel.put("map", leafletMap);
-		ModelAndView mav = new ModelAndView();
-		List<ClinicaComunal> unidades = ClinicaComunalService.clinicaComunalGetAll();
-		mav.addObject("centros",unidades);
-		mav.addObject("model",myModel);
-		return mav;
-
 	
-	} 
-	
+	  // Vista principal que muestra información detallada del centro de asistencia
 	@GetMapping("/informacion")
 public ModelAndView mostrarInformacion(@RequestParam("id") int id) {
     List<String> debugMessages = new ArrayList<>();

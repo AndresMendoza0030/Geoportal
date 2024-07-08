@@ -55,7 +55,7 @@
                 </div>
             </div>
             <div class="hidden md:flex items-center space-x-1">
-                <div th:replace="index::logout"></div>
+               
             </div>
             <div class="md:hidden flex items-center" style="width:40px; height: 40px; margin-top: 8px;">
                 <button class="mobile-menu-button">
@@ -152,6 +152,7 @@
 <df-messenger intent="WELCOME" chat-title="GeoAgente" chat-icon="https://i.ibb.co/fvbZ8ZP/logo2.png" agent-id="918c7b00-fc13-47e3-84c6-41fd9dff493e" language-code="es">
     
 </df-messenger>
+<!--  Este script agrega los pins de las clinicas y un pin con la ubicacion del usuario asimismo busca una clinica que posiblemente sea la mas cercana del usuario -->
 <script th:inline="javascript">
     var customIcon = L.icon({
         iconUrl: '/images/alfiler.png',
@@ -286,6 +287,7 @@
         });
     });
 </script>
+<!--  Este script agrega funcionalidad para interactuar con las filas de la tabla y el mapa -->
 <script th:inline="javascript">
     document.addEventListener('DOMContentLoaded', function () {
         const tableRows = document.querySelectorAll('tbody tr');
@@ -326,6 +328,7 @@
         });
     });
 </script>
+<!-- Comentario: Este script maneja el filtrado de las unidades según los municipios seleccionados. -->
 <script>
     $(document).ready(function () {
         $(".dropdown-menu label").click(function () {

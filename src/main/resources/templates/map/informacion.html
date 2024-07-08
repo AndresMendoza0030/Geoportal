@@ -66,7 +66,7 @@
                 </div>
                 <!-- secondary nav -->
                 <div class="hidden md:flex items-center space-x-1">
-                    <div th:replace="index::logout"></div>
+                    
                 </div>
                 <!-- mobile button goes here -->
                 <div class="md:hidden flex items-center" style="width:40px; height: 40px; margin-top: 8px; ">
@@ -123,7 +123,7 @@
     <script th:inline="javascript">
      
 
-        // Leaflet map initialization
+        // Inicializar Leaflet map 
         var coorX = /*[[${clinica.coorX}]]*/ 0;
         var coorY = /*[[${clinica.coorY}]]*/ 0;
         var map = L.map('map').setView([coorY, coorX], 13);

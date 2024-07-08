@@ -2,7 +2,7 @@ package com.nikolas.leaflet.dto;
 
 
 import java.util.Map;
-
+//Getters y setters para manejar el Request del chatbot
 public class DialogFlowRequest {
     private String responseId;
     private String session;
@@ -34,7 +34,7 @@ public class DialogFlowRequest {
 
     public static class QueryResult {
         private String queryText;
-        private Map<String, Object> parameters;  // Changed from Map<String, String> to Map<String, Object>
+        private Map<String, Object> parameters;  //Asegura usar Map<String, Object>
         private Intent intent;
         private String languageCode;
 

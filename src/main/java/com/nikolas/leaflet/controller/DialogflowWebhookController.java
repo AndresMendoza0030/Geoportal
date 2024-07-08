@@ -26,11 +26,12 @@ public class DialogflowWebhookController {
     private ClinicaComunalService ClinicaComunalService;
     @Autowired
     private UnidadMedicaService UnidadMedicaService;
-
+  // Ruta para manejar respuestas del ChatBot que recurran a la API
     @PostMapping("/webhook")
     public ResponseEntity<JsonObject> handleDialogflowRequest(@RequestBody DialogFlowRequest request) {
         try {
             String intentName = request.getQueryResult().getIntent().getDisplayName();
+              // Respuesta al intent buscarClinicasPorMunicipio
             if ("buscarClinicasPorMunicipio".equals(intentName)) {
                 Map<String, Object> params = request.getQueryResult().getParameters();
                 List<Map<String, String>> locationList = (List<Map<String, String>>) params.get("location");
@@ -40,6 +41,7 @@ public class DialogflowWebhookController {
                 JsonObject responseJson = createFulfillmentMessageJson(municipio,clinicas);
                 return ResponseEntity.ok().body(responseJson);
             }
+              // Respuesta al intent buscarHorarioClinica
             if ("buscarHorarioClinica".equals(intentName)) {
                 Map<String, Object> params = request.getQueryResult().getParameters();
                 Map<String, String> location = (Map<String, String>) params.get("location");
@@ -48,6 +50,7 @@ public class DialogflowWebhookController {
                 JsonObject responseJson = createFulfillmentMessageJson2(municipio,clinicas);
                 return ResponseEntity.ok().body(responseJson);
             }
+              // Respuesta al intent buscarUnidadesMedicasPorMunicipio
             if ("buscarUnidadesMedicasPorMunicipio".equals(intentName)) {
                 Map<String, Object> params = request.getQueryResult().getParameters();
                 List<Map<String, String>> locationList = (List<Map<String, String>>) params.get("location");
@@ -58,7 +61,7 @@ public class DialogflowWebhookController {
                 JsonObject responseJson = createFulfillmentMessageJson3(municipio, unidadesMedicas);
                 return ResponseEntity.ok().body(responseJson);
             }
-            
+            // Respuesta al intent buscarHorarioUnidadMedica
             if ("buscarHorarioUnidadMedica".equals(intentName)) {
                 Map<String, Object> params = request.getQueryResult().getParameters();
                 List<Map<String, String>> locationList = (List<Map<String, String>>) params.get("location");
@@ -70,7 +73,7 @@ public class DialogflowWebhookController {
                 JsonObject responseJson = createFulfillmentMessageJson4(municipio, unidadesMedicas);
                 return ResponseEntity.ok().body(responseJson);
             }
-            
+             // Respuesta al intent ServiciosOfrecidos
             if ("ServiciosOfrecidos".equals(intentName)) {
                 JsonObject responseJson = createFulfillmentMessageServiciosOfrecidos();
                 return ResponseEntity.ok().body(responseJson);
@@ -85,12 +88,12 @@ public class DialogflowWebhookController {
             return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body(errorJson);
         }
     }
-
+     //Crear Mensaje enriquecido de respuesta en formato Json para el chatbot
     private JsonObject createFulfillmentMessageJson(String municipio, List<ClinicaComunal> clinicas) {
         JsonObject fulfillmentMessage = new JsonObject();
         JsonArray fulfillmentMessages = new JsonArray();
     
-        // Message for introductory text or no clinics found
+        //Mensaje por defecto o si no se encontró resultado
         JsonObject textMessage1 = new JsonObject();
         JsonObject textObject = new JsonObject();
         textObject.add("text", new JsonArray());
@@ -322,7 +325,7 @@ public class DialogflowWebhookController {
             richContentInnerArray.add(dividerItem);
         }
         
-        // Remove the last divider if not needed
+        // Quita el ultimo divisor si necesario
         if (richContentInnerArray.size() > 0) {
             richContentInnerArray.remove(richContentInnerArray.size() - 1);
         }
@@ -340,6 +343,7 @@ public class DialogflowWebhookController {
         
         return fulfillmentMessage;
     }
+     //Función para asegurar la extracción correcta de la ubicación ya sea municipio o nombre del centro
     public String extractLocation(Map<String, String> location) {
         // Lista de campos de ubicación en orden de prioridad
         String[] locationFields = {"city", "subadmin-area", "admin-area", "business-name", "street-address"};

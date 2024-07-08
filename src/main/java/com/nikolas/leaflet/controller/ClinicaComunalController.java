@@ -12,7 +12,7 @@ import javax.servlet.http.HttpServletResponse;
 import javax.validation.Valid;
 
 import com.nikolas.leaflet.domain.ClinicaComunal;
-import com.nikolas.leaflet.domain.PersonaMunicipio;
+
 import com.nikolas.leaflet.domain.UnidadMedica;
 import com.nikolas.leaflet.service.ClinicaComunalService;
 import com.nikolas.leaflet.service.ClinicaComunalServiceImpl;

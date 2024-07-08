@@ -5,6 +5,7 @@
     <title>Geoportal Centros de Asistencia Médica</title>
     <meta charset="utf-8"/>
     <meta name="viewport" content="width=device-width, initial-scale=1"/>
+    <!-- Incluyendo hojas de estilo locales y externas -->
     <link rel="stylesheet" href="/css/styles.css" th:href="@{/css/styles.css}"/>
     <link rel="stylesheet" href="/css/main.css"
           th:href="@{/webjars/leaflet/1.0.3/leaflet.css}"/>
@@ -20,6 +21,7 @@
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css"/>
     <link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined" rel="stylesheet"/>
     <style>
+        
         df-messenger {
             --df-messenger-bot-message: #374151;
             --df-messenger-button-titlebar-color: #374151;
@@ -42,6 +44,7 @@
 <nav class="bg-white shadow-lg">
     <div class="px-2 mx-auto ">
         <div class="flex justify-between">
+           
             <div class="flex space-x-2">
                 <div>
                     <a href="#" class="flex items-center py-3 px-2 text-gray-700 hover:text-gray-900"
@@ -57,7 +60,7 @@
                 </div>
             </div>
             <div class="hidden md:flex items-center space-x-1">
-                <div th:replace="index::logout"></div>
+            
             </div>
             <div class="md:hidden flex items-center" style="width:40px; height: 40px; margin-top: 8px;">
                 <button class="mobile-menu-button">
@@ -151,9 +154,8 @@
     </div>
 </div>
 <script src="https://www.gstatic.com/dialogflow-console/fast/messenger/bootstrap.js?v=1"></script>
-<!-- Añadir el botón de micrófono -->
-<button id="voiceButton">🎤 Hablar</button>
-<audio id="botAudio" controls style="display: none;"></audio>
+
+
 <df-messenger intent="WELCOME" chat-title="GeoAgente" chat-icon="https://i.ibb.co/fvbZ8ZP/logo2.png" agent-id="918c7b00-fc13-47e3-84c6-41fd9dff493e" language-code="es">
     
 </df-messenger>
@@ -162,10 +164,10 @@
 
 
 
-
+<!--  Este script agrega los pins de las clinicas y un pin con la ubicacion del usuario asimismo busca una clinica que posiblemente sea la mas cercana del usuario -->
 <script th:inline="javascript">
  
-    // Mapa y otras funcionalidades previas...
+    // Mapa con icono personalizado
     var customIcon = L.icon({
         iconUrl: '/images/alfiler2.png',
         iconSize: [42, 42],
@@ -185,7 +187,7 @@
 
     clinicasComunales.forEach(element => L.marker([element.coorY, element.coorX], {icon: customIcon}).addTo(mymap).bindPopup(`<h5>${element.nombre}</h5>`));
 
-    console.log(clinicasComunales);
+
 
     function updateLeafletMap(ev) {
         var map = this;
@@ -299,6 +301,7 @@
         });
     });
 </script>
+<!--  Este script agrega funcionalidad para interactuar con las filas de la tabla y el mapa -->
 <script th:inline="javascript">
     document.addEventListener('DOMContentLoaded', function () {
         const tableRows = document.querySelectorAll('tbody tr');
@@ -339,6 +342,7 @@
         });
     });
 </script>
+<!-- Comentario: Este script maneja el filtrado de las clínicas según los municipios seleccionados. -->
 <script>
     $(document).ready(function () {
         $(".dropdown-menu label").click(function () {
