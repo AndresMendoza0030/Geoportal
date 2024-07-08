@@ -100,27 +100,38 @@ Recuerda que Geoportal de Centros de Asistencia Médica es un proyecto de códig
 - Andrés Josué Mendoza Alvarado - 00305422@uca.edu.sv
 - Erick Fernando Quinteros Lizama - 00220619@uca.edu.sv
 
-2. Identificación de roles en el grupo.
+## Identificación de roles en el grupo.
+   
 Coordinador del Grupo: Fernando Quinteros.
+
 Backend Developers: Andrés Mendoza y Erick Vasquez.
+
 Responsabilidades:
+
 ● Desarrollar y mantener la lógica del servidor.
+
 ● Crear y gestionar bases de datos.
-● Desarrollar APIs (Interfaces de Programación de Aplicaciones) para que el
-frontend pueda comunicarse con el backend.
+
+● Desarrollar APIs (Interfaces de Programación de Aplicaciones) para que el frontend pueda comunicarse con el backend.
+
 ● Implementar la seguridad y la autenticación.
+
 ● Optimizar el rendimiento del servidor y la base de datos.
+
 ● Integrar servicios y sistemas externos.
+
 Frontend Developers: Fernando Quinteros y David Moreno.
+
 Responsabilidades:
+
 ● Diseñar y desarrollar la interfaz de usuario de la aplicación.
-● Implementar diseños UX/UI asegurando una experiencia de usuario intuitiva
-y atractiva.
-● Integrar el frontend con las APIs del backend para que los datos se muestren
-correctamente.
-● Asegurar la responsividad del diseño para que la aplicación funcione bien en
-diferentes dispositivos y navegadores.
+
+● Implementar diseños UX/UI asegurando una experiencia de usuario intuitiva y atractiva.
+● Integrar el frontend con las APIs del backend para que los datos se muestren correctamente.
+● Asegurar la responsividad del diseño para que la aplicación funcione bien en diferentes dispositivos y navegadores.
+
 ● Optimizar el rendimiento del frontend para una carga rápida y eficiente.
+
 ● Realizar pruebas de usabilidad y hacer ajustes según sea necesario.
 
 ## Referencias
