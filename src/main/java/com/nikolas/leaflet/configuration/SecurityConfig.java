@@ -26,7 +26,7 @@ private static final Logger logger = LoggerFactory.getLogger(UserService.class);
     public SecurityFilterChain securityFilterChain(HttpSecurity http) throws Exception {
         http
             .authorizeRequests()
-            .antMatchers("/", "/map/index", "/register", "/map/unidades", "/css/**", "/js/**", "/images/**")
+            .antMatchers("/","/update","/index", "/map/index", "/register", "/map/unidades","/dialogflow/webhook", "/css/**", "/js/**", "/images/**")
                 .permitAll()  // Permite acceso a estas rutas sin autenticación
                 .anyRequest().authenticated()  // Requiere autenticación para el resto
             .and()
